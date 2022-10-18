@@ -1,21 +1,17 @@
-import cmath
-from fractions import Fraction
+products = {'phone': 1000, 'computer': 3000, 'apple': 2, 'pen': 20}
+stock = {'phone': 10, 'computer': 5, 'apple': 20, 'pen': 10}
 
-def sum(arg1, arg2):
-   
-    if isinstance(arg1, float) or isinstance(arg2, float):
-        return float(arg1) + float(arg2)
-    elif isinstance(arg1, int) and isinstance(arg2, int):
-        return int(arg1) + int(arg2)
-    elif isinstance(arg1, complex) or isinstance(arg2, complex):
-        return complex(arg1) + complex(arg2)
-    elif isinstance(arg1, Fraction) or isinstance(arg2, Fraction):
-        return Fraction(arg1) + Fraction(arg2)
-    else:
-        return float(arg1) + float(arg2)
-    
+def sell(product, quantity, ballance, client_surname):
+    if quantity > stock[product]:
+        return 'out of stock'
 
-print(f"__name__ = {__name__}")
+def refund(product, quantity, ballance, client_surname):
+    pass
+
+def log(transactions, stock, ballance):
+    if not len(transactions):
+        return f'no transactions\n{[print(f"{x}: {y}") for x in stock.keys for y in stock.values]}\nballance: {ballance}'
+    return f'{transactions}\n{[print(f"{x}: {y}") for x in stock.keys for y in stock.values]}\nballance: {ballance}'
 
 if __name__ == '__main__':
-    print(sum(2, 3))
+    pass
