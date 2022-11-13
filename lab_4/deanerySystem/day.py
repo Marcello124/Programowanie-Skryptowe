@@ -36,6 +36,5 @@ def nthDayFrom(n, day):
     if shift == 0:
         shift = 7
     for i in Day:
-
         if i.value == shift:
             return i
