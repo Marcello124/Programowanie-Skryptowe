@@ -1,5 +1,14 @@
 from time import localtime
 from string import ascii_lowercase
+from abc import ABC, abstractmethod
+
+
+class Book(ABC):
+    def __init__(self, id: int, author: str, title: str):
+        self.id = id
+        self.author = author
+        self.title = title
+        self.pesel = None
 
 class Date:
     def __init__(self, day, month, year, hour, minute, second):
@@ -18,27 +27,30 @@ def parseDate():
     return Date(localtime().tm_mday, localtime().tm_mon, localtime().tm_year, localtime().tm_hour, localtime().tm_min, localtime().tm_sec)
 
 
-class Book:
+class Borrowed_Book:
     def __init__(self, id: int, author: str, title: str):
-        self.id = id
-        self.author = author
-        self.title = title
+        super().__init__(id, author, title)
         self.borrow_date = None
         self.return_date = None
-        self.pesel = None
 
     def __str__(self):
         return f'{self.id:4d}: {self.author.title():>13} - {self.title.title()}'
 
 
+class BoughtBook(Book):
+    def __init__(self, id: int, author: str, title: str):
+        super().__init__(id, author, title)
+        
+
+
 class Library:
-    books = []
+    borrowed_books = []
     readers = []
     transactions = []
     
     def __str__(self):
         print('Books:')
-        for book in self.books:
+        for book in self.borrowed_books:
             print(book)
         print('\nReaders:')
         for reader in self.readers:
@@ -53,16 +65,29 @@ class Library:
 
     @staticmethod
     def parseFile():
-        books = []
+        borrowed_books = []
+        bought_books = []
+        bought = False
         id = 1
-        with open('C:\\Users\\Studia\\Studia\\Programowanie Skryptowe\\lab_4\\books.txt', 'r') as file:
+        with open('C:\\Users\\Studia\\Studia\\Programowanie Skryptowe\\lab_5\\books.txt', 'r') as file:
             for line in file:
                 book = line.split()
-                for _ in range(int(book[2])):
-                    books.append(Book(id, book[1], book[0]))
-                    id += 1
-        return books
-    books = parseFile()
+                if book == 'Borrowed:':
+                    continue
+                if book == 'Bought:':
+                    bought = True
+                    continue
+
+                if not bought:
+                    for _ in range(int(book[2])):
+                        borrowed_books.append(Book(id, book[1], book[0]))
+                        id += 1
+                if bought:
+                    for _ in range(int(book[2])):
+                        bought_books.append(Book(id, book[1], book[0]))
+                        id += 1
+        return borrowed_books, bought_books
+    borrowed_books, bought_books = parseFile()
 
 
 class Reader():

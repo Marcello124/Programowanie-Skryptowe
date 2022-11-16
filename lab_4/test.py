@@ -1,49 +1,43 @@
 import unittest
-from library import Library
-
-class Test_Borrow(unittest.TestCase):
-
-    def test_ok(self):
-        self.assertIsNone(Library().book_borrow('Marcin', 'Diuna', 1))
-
-    def test_invalid_name(self):
-        self.assertEqual(Library().book_borrow('Marcin123', 'Diuna', 1), "Invalid name")
-
-    def test_no_name(self):
-        self.assertEqual(Library().book_borrow('', 'Diuna', 1), "No name specified")
-
-    def test_wrong_book(self):
-        self.assertEqual(Library().book_borrow('Marcin', 'kicuch', 1), 'No such book')
-
-    def test_invalid_quantity(self):
-        self.assertEqual(Library().book_borrow('Marcin', 'Diuna', -1), 'Invalid quantity')
-        self.assertEqual(Library().book_borrow('Marcin', 'Diuna', 2.0), 'Invalid quantity')
-        self.assertEqual(Library().book_borrow('Marcin', 'Diuna', 1.2), 'Invalid quantity')
+from library import Book, Reader, parseInput
 
 
-class Test_Return(unittest.TestCase):
+class Test_parseInput(unittest.TestCase):
+    
+    def test_wrong_name(self):
+        self.assertEqual(parseInput('Fiu123 Bzdziu 123 + ostatnie_zyczenie sapkowski'), 'Wrong name')
+
+    def test_wrong_surname(self):
+        self.assertEqual(parseInput('Fiu Bzdziu123 123 + ostatnie_zyczenie sapkowski'), 'Wrong surname')
+
+    def test_wrong_pesel(self):
+        self.assertEqual(parseInput('Fiu Bzdziu asd + ostatnie_zyczenie sapkowski'), 'Wrong pesel')
+
+    def test_wrong_operation(self):
+        self.assertEqual(parseInput('Fiu Bzdziu 123 s ostatnie_zyczenie sapkowski'), 'Wrong operation')
 
 
-    def test_ok(self):
-        self.assertIsNone(Library().book_borrow('Marcin', 'Diuna', 1))
+class Test_Reader_Add(unittest.TestCase):
 
-    def test_invalid_name(self):
-        self.assertEqual(Library().book_borrow('Marcin123', 'Diuna', 1), "Invalid name")
+    def test_no_author(self):
+        self.assertEqual(Reader('Fiu', 'Bzdziu', 123) + Book(0, 'sapkowski', 'ostatnie_zyczeni'), 'No such title')
 
-    def test_no_name(self):
-        self.assertEqual(Library().book_borrow('', 'Diuna', 1), "No name specified")
-        
-    def test_wrong_book(self):
-        self.assertEqual(Library().book_borrow('Marcin', 'kicuch', 1), 'No such book')
+    def test_no_title(self):
+        self.assertEqual(Reader('Fiu', 'Bzdziu', 123) + Book(0, 'sapkowsk', 'ostatnie_zyczenie'), 'No such author')
 
-    # def test_too_much(self):
-    #     self.assertEqual(Library().book_borrow('Marcin', 'Diuna', 10000000), 'Too many books')
+    def test_no_more_books(self):
+        self.assertEqual(Reader('Fiu', 'Bzdziu', 123) + Book(0, 'herbert', 'diuna'), Reader('Fiu', 'Bzdziu', 123) + Book(0, 'herbert', 'diuna'), 'No such author')
 
-    def test_invalid_quantity(self):
-        self.assertEqual(Library().book_borrow('Marcin', 'Diuna', -1), 'Invalid quantity')
-        self.assertEqual(Library().book_borrow('Marcin', 'Diuna', 2.0), 'Invalid quantity')
-        self.assertEqual(Library().book_borrow('Marcin', 'Diuna', 1.2), 'Invalid quantity')
+    def test_book_borrowed(self):
+        self.assertEqual(Reader('Fiu', 'Bzdziu', 123) + Book(0, 'sapkowski', 'ostatnie_zyczenie'), Reader('Fiu', 'Bzdziu', 123) + Book(0, 'sapkowski', 'ostatnie_zyczenie'), 'No such author')
 
 
-if __name__ == '__main__':
+class Test_Reader_Sub(unittest.TestCase):
+
+    def test_no_book_borrowed(self):
+        self.assertEqual(Reader('Fiu', 'Bzdziu', 123) - Book(0, 'erkison', 'ogrody_ksiezyca'), "You don't have that book")
+
+
+
+if __name__ == "__main__":
     unittest.main()
