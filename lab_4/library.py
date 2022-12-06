@@ -34,6 +34,7 @@ class Book:
 class Library:
     books = []
     readers = []
+    borrow_history = []
     transactions = []
     
     def __str__(self):
@@ -43,12 +44,12 @@ class Library:
         print('\nReaders:')
         for reader in self.readers:
             print(reader)
-        print('\nTransactions:')
+        print('\nBorrow History:')
         print(f'| Name        | Surname       |  Status  |     Author - Title                                              |   id | Date                |')
         print(f'|-------------|---------------|----------|-----------------------------------------------------------------|------|---------------------|')
-        for transaction in self.transactions:
-            print(transaction)
-        print('')
+        for borrow_entry in self.borrow_history:
+            print(borrow_entry)
+        print('\nTransactions')
         return ''
 
     @staticmethod
@@ -106,7 +107,7 @@ class Reader():
                 entry.pesel = self.pesel
                 entry.borrow_date = parseDate()
                 entry.return_date = None
-                Library.transactions.append(f'| {self.name.title():11} | {self.surname.title():13} | borrowed | {entry.author.title():>10} - {entry.title.title():50} | {entry.id:4d} | {entry.borrow_date} |')
+                Library.borrow_history.append(f'| {self.name.title():11} | {self.surname.title():13} | borrowed | {entry.author.title():>10} - {entry.title.title():50} | {entry.id:4d} | {entry.borrow_date} |')
                 break
 
         for reader in Library.readers:
@@ -120,10 +121,16 @@ class Reader():
                 entry.pesel = None
                 entry.borrow_date = None
                 entry.return_date = parseDate()
-                Library.transactions.append(f'| {self.name.title():11} | {self.surname.title():13} | returned | {entry.author.title():>10} - {entry.title.title():50} | {entry.id:4d} | {entry.return_date} |')
+                Library.borrow_history.append(f'| {self.name.title():11} | {self.surname.title():13} | returned | {entry.author.title():>10} - {entry.title.title():50} | {entry.id:4d} | {entry.return_date} |')
                 return "Retruned"
         print("You don't have that book")
         return "You don't have that book"
+
+    def __lt__(self):
+        pass
+
+    def __gt__(self):
+        pass
 
 
 def parseInput(input):

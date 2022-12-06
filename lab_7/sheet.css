@@ -1,0 +1,55 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.azure {
+    background-color: #EFF;
+    border: solid black 2px ;
+    margin: 18px;
+    margin-bottom: 0px;
+    padding: 1em;
+    box-shadow: 2px 2px 3px;
+    font-size: 1.2vw;
+}
+
+@keyframes cycleBlueRed {
+    0% {color: blue}
+    50% {color: red}
+    100% {color: blue}
+}
+
+body {
+    background-color: white;
+}
+
+aside h1 {
+    animation: cycleBlueRed 2s infinite;
+}
+
+footer {
+    margin-bottom: 1em !important;
+}
+
+main {   
+    text-align: justify;
+}
+
+
+@media (min-width: @screen-sm-min) {
+    aside  {
+        display: inline-block;
+        position: absolute;
+        width: 18em;
+        right: 0em;
+    }
+    
+    main {
+        width: 26em;
+        text-align: justify;
+    }
+    nav {
+        display: inline-block;
+        width: 9em;
+    }
+}
