@@ -36,7 +36,7 @@ main {
 }
 
 
-@media (min-width: @screen-sm-min) {
+@media (min-width: 720px) {
     aside  {
         display: inline-block;
         position: absolute;

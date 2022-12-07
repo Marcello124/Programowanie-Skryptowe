@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      Page title
+    </title>
+  </head>
+  <body>
+    <main>
+      <h1>
+        Płótno
+      </h1>
+
+      <h1>
+        Canvas
+      </h1>
+
+      <canvas id="canvas"
+              width="260"
+              height="300"
+              style="border:1px solid #000000;">
+        Wygląda na to, że twoja przeglądarka nie obsługuje elementu "canvas" / It looks like your browser does not support the "canvas" element
+      </canvas>
+      <!-- <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        ctx.fillText("Hello World", 10, 50); //Wykreślenie podanego tekstu na płótnie / Drawing given text on canvas
+      </script> -->
+      <script>
+        var e = document.getElementById('canvas');
+        var ctx = e.getContext('2d');
+        ctx.beginPath();
+        ctx.fillstyle = '#537697';
+        ctx.lineWidth = 6
+        ctx.strokeStyle = '#537697'
+        ctx.moveTo(40, 70);
+        ctx.lineTo(40, 190);
+        ctx.lineTo(110, 230);
+        ctx.lineTo(140, 230);
+        ctx.lineTo(210, 190);
+        ctx.lineTo(210, 70);
+        ctx.lineTo(140, 110);
+        ctx.lineTo(110, 110);
+        ctx.lineTo(40, 70);
+        ctx.moveTo(110, 110);
+        ctx.lineTo(110, 230);
+        ctx.moveTo(140, 230);
+        ctx.lineTo(140, 110);
+        ctx.moveTo(54, 79);
+        ctx.lineTo(70, 75);
+        ctx.lineTo(125, 107);
+        ctx.lineTo(180, 74);
+        ctx.lineTo(196, 79)
+        ctx.stroke();
+        ctx.closePath();
+      </script>
+    </main>
+  </body>
+</html>
