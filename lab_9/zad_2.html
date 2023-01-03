@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Counter</title>
+</head>
+<body>
+  <form>
+    <label>Counter: <input type="text" name="counter" value="10" /></label>
+  </form>
+  <br/>
+  <span>0</span>
+  <span>0</span>
+  <span>0</span>
+  <span>0</span>
+  <span>0</span>
+  <script>
+    var inputField = document.forms[0]["counter"];
+    
+    setInterval(function() {
+
+      var counter = inputField.value;
+
+      if (counter > 0) {
+        inputField.value = counter - 1;
+      }
+
+      var spans = document.querySelectorAll("span");
+
+      for (let i = 0; i < spans.length; i++) {
+        spans[i].innerText = inputField.value;
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
